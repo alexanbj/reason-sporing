@@ -2,7 +2,11 @@ module Styles = {
   open Css;
 
   let container =
-    style([maxWidth(px(980)), marginLeft(auto), marginRight(auto)]);
+    style([
+      maxWidth(px(Theme.containerPixelWidth)),
+      marginLeft(auto),
+      marginRight(auto),
+    ]);
 };
 
 let component = ReasonReact.statelessComponent("Container");
