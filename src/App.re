@@ -1,7 +1,40 @@
-/* This is the basic component. */
-let component = ReasonReact.statelessComponent("App");
+open Route;
+
+type state = {route};
+
+type action =
+  | ChangeRoute(route);
+
+let reducer = (action, _state) =>
+  switch (action) {
+  | ChangeRoute(route) => ReasonReact.Update({route: route})
+  };
+
+let component = ReasonReact.reducerComponent("App");
 
 let make = _children => {
   ...component,
-  render: _self => <div> {ReasonReact.string("Hello world")} </div>,
+  reducer,
+  didMount: self => {
+    let watcherID =
+      ReasonReact.Router.watchUrl(url =>
+        self.send(ChangeRoute(url |> Route.urlToRoute))
+      );
+
+    self.onUnmount(() => ReasonReact.Router.unwatchUrl(watcherID));
+  },
+  initialState: () => {
+    route: ReasonReact.Router.dangerouslyGetInitialUrl()->Route.urlToRoute,
+  },
+  render: self =>
+    <>
+      <main>
+        {
+          switch (self.state.route) {
+          | Home => <Home />
+          | NotFound => <NotFound />
+          }
+        }
+      </main>
+    </>,
 };
