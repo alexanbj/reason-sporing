@@ -36,5 +36,6 @@ let make = _children => {
           }
         }
       </main>
+      <Footer />
     </>,
 };

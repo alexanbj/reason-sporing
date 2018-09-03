@@ -1,6 +1,7 @@
 open Css;
 
 let textColor = rgb(44, 62, 80);
+let primaryColor = rgb(231, 4, 15);
 let containerPixelWidth = 980;
 
 /* Global styles / poor man's CSS reset */
