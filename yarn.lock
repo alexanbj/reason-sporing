@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@glennsl/bs-json@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@glennsl/bs-json/-/bs-json-3.0.0.tgz#b4e1cf6612270a8dd7287a8a71ebe17e8f0fb683"
+
 "@webassemblyjs/ast@1.5.13":
   version "1.5.13"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.5.13.tgz#81155a570bd5803a30ec31436bc2c9c0ede38f25"
@@ -445,11 +449,15 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-bs-css@^7.1.0:
+bs-css@7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/bs-css/-/bs-css-7.1.0.tgz#c47e6b8d21853f4020b2ad897f02cfe8b5a19420"
   dependencies:
     glamor "^2.0.0"
+
+bs-fetch@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/bs-fetch/-/bs-fetch-0.3.0.tgz#60c64457359d0c7e0798d5a04db8987d16c4f8f3"
 
 bs-platform@4.0.5:
   version "4.0.5"
