@@ -32,6 +32,7 @@ let make = _children => {
         {
           switch (self.state.route) {
           | Home => <Home />
+          | Tracking => <Tracking />
           | NotFound => <NotFound />
           }
         }
