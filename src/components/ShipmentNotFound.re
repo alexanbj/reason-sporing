@@ -13,11 +13,9 @@ let make = _children => {
   ...component,
   render: _self =>
     <Container>
-      <h1 className=Styles.heading>
-        {
-          ReasonReact.string("Beklager, vi fikk ingen treff på dette søket.")
-        }
-      </h1>
+      <h2 className=Styles.heading>
+        {ReasonReact.string("Beklager, vi fant ingen pakker.")}
+      </h2>
       <img className=Styles.img src="/undraw_empty_xct9.svg" ariaHidden=true />
     </Container>,
 };

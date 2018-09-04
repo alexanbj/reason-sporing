@@ -31,8 +31,9 @@ type consignment_ok = {
   totalWeightInKgs: float,
 };
 
+/* Since we have a variant type consignment we flatten the error object from the api*/
 type consignment_error = {
-  error: int,
+  code: int,
   message: string,
 };
 
@@ -66,19 +67,20 @@ module Decode = {
       city: json |> field("city", string),
     };
 
+  let consignment_error = json: consignment_error =>
+    Json.Decode.{
+      code: json |> field("code", int),
+      message: json |> field("message", string),
+    };
+
   let consignment = json: consignment => {
     /* We check if there is an error field when decoding the json to determine the correct variant */
-    let errorMaybe = Json.Decode.(json |> optional(field("error", int)));
+    let errorMaybe =
+      Json.Decode.(json |> optional(field("error", consignment_error)));
 
     switch (errorMaybe) {
-    | Some(_) =>
-      ConsignmentError(
-        Json.Decode.{
-          error: json |> field("error", int),
-          message: json |> field("message", string),
-        },
-      )
-    | _ =>
+    | Some(consignmentError) => ConsignmentError(consignmentError)
+    | None =>
       ConsignmentOk(
         Json.Decode.{
           consignmentId: json |> field("consignmentId", string),

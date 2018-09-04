@@ -1,14 +1,14 @@
-type parcel = ConsignmentData.consignmentSet;
-
+/* The different states this component is in */
 type state =
   | Loading
   | Error
   | Loaded(ConsignmentData.consignmentSet);
 
+/* The different action types this component dispatches to it self */
 type action =
-  | ParcelFetch
-  | ParcelFetched(ConsignmentData.consignmentSet)
-  | ParcelFailedToFetch;
+  | ConsignmentFetch
+  | ConsignmentFetched(ConsignmentData.consignmentSet)
+  | ConsignmentFailedToFetch;
 
 type retainedProps = {id: option(string)};
 
@@ -19,37 +19,46 @@ let make = (~id: option(string), _children) => {
   initialState: () => Loading,
   reducer: (action, _state) =>
     switch (action) {
-    | ParcelFetch =>
+    | ConsignmentFetch =>
       ReasonReact.UpdateWithSideEffects(
         Loading,
         (
           self =>
             ConsignmentData.fetchConsignment(id, payload =>
-              self.send(ParcelFetched(payload))
+              self.send(ConsignmentFetched(payload))
             )
         ),
       )
-    | ParcelFetched(parcel) => ReasonReact.Update(Loaded(parcel))
-    | ParcelFailedToFetch => ReasonReact.Update(Error)
+    | ConsignmentFetched(data) => ReasonReact.Update(Loaded(data))
+    | ConsignmentFailedToFetch => ReasonReact.Update(Error)
     },
-  didMount: self => self.send(ParcelFetch),
+  /* On mount we dispatch a fetch */
+  didMount: self => self.send(ConsignmentFetch),
   retainedProps: {
     id: id,
   },
   didUpdate: ({oldSelf, newSelf: self}) =>
     if (oldSelf.retainedProps.id !== self.retainedProps.id) {
-      self.send(ParcelFetch);
+      self.send(ConsignmentFetch);
     },
   render: self =>
     <Container>
       <h1> {ReasonReact.string("Sporing")} </h1>
       <TrackingForm />
       {
-        switch (id, self.state) {
-        | (None, _) => <div> {ReasonReact.string("Load packages")} </div>
-        | (_, Loading) => <CircularSpinner />
-        | (_, Loaded(data)) => <ConsignmentInfo consignment=data />
-        | _ => <ShipmentNotFound />
+        switch (self.state) {
+        | Loading => <CircularSpinner />
+        | Loaded(data) =>
+          /* TODO: Get rid of nested switch */
+          switch (data.consignmentSet[0]) {
+          | ConsignmentData.ConsignmentError(err) when err.code == 404 =>
+            <ShipmentNotFound />
+          | ConsignmentData.ConsignmentError(err) =>
+            <div> {ReasonReact.string(err.message)} </div>
+          | ConsignmentData.ConsignmentOk(consignment) =>
+            <ConsignmentInfo consignment />
+          }
+        | _ => <div> {ReasonReact.string("Det oppstod en ukjent feil")} </div>
         }
       }
     </Container>,

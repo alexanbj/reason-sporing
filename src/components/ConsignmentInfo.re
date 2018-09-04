@@ -9,13 +9,12 @@ module Styles = {
 
 let component = ReasonReact.statelessComponent("ConsignmentInfo");
 
-let make = (~consignment: ConsignmentData.consignmentSet, _children) => {
+let make = (~consignment: ConsignmentData.consignment_ok, _children) => {
   ...component,
   render: _self =>
     <div>
       {ReasonReact.string("Sendingsnummer:")}
-      <span>
-        {ReasonReact.string(consignment.consignmentSet[0].consignmentId)}
-      </span>
+      <span> {ReasonReact.string(consignment.consignmentId)} </span>
+      <ConsignmentStatus consignment />
     </div>,
 };
