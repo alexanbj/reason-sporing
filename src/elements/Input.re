@@ -5,9 +5,10 @@ module Styles = {
     style([
       borderRadius(px(6)),
       border(px(1), solid, rgb(232, 232, 232)),
-      padding(rem(1.5)),
+      padding(rem(1.0)),
       color(Theme.textColor),
       fontSize(rem(1.0)),
+      hover([boxShadow(~y=px(18), ~blur=px(56), rgba(0, 0, 0, 0.04))]),
     ]);
 };
 

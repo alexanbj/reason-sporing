@@ -4,7 +4,9 @@ let make = _children => {
   ...component,
   render: _self =>
     <>
+      <Container>
+        <h1> {ReasonReact.string("Spor pakken din")} </h1>
+      </Container>
       <Hero> <Container> <TrackingForm /> </Container> </Hero>
-      <Container> <h1> {ReasonReact.string("Posten")} </h1> </Container>
     </>,
 };

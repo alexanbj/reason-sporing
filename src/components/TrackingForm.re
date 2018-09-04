@@ -1,3 +1,15 @@
+module Styles = {
+  open Css;
+
+  let form =
+    style([
+      display(grid),
+      /* The column gap in css grid is so nice for spacing between items! */
+      gridColumnGap(rem(1.0)),
+      unsafe("gridAutoFlow", "column"),
+      gridTemplateColumns([auto, minContent]),
+    ]);
+};
 type state = string;
 
 let component = ReasonReact.reducerComponent("TrackingForm");
@@ -17,7 +29,7 @@ let make = (~initialValue=?, _children) => {
     },
   reducer: (newText, _text) => ReasonReact.Update(newText),
   render: self =>
-    <form onSubmit={self.handle(handleSubmit)}>
+    <form className=Styles.form onSubmit={self.handle(handleSubmit)}>
       <Input
         value={self.state}
         ariaLabel="Sporing på referanse-, sendings- eller kollinummer"

@@ -4,7 +4,7 @@ module Styles = {
   let button =
     style([
       textTransform(uppercase),
-      padding2(rem(0.5), rem(2.)),
+      padding2(rem(0.5), rem(1.)),
       backgroundColor(Theme.primaryColor),
       color(white),
       fontWeight(500),
