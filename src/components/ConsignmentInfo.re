@@ -14,6 +14,8 @@ let make = (~consignment: ConsignmentData.consignmentSet, _children) => {
   render: _self =>
     <div>
       {ReasonReact.string("Sendingsnummer:")}
-      <span> {ReasonReact.string("Id from json")} </span>
+      <span>
+        {ReasonReact.string(consignment.consignmentSet[0].consignmentId)}
+      </span>
     </div>,
 };
