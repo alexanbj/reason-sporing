@@ -10,9 +10,11 @@ type action =
   | ParcelFetched(ConsignmentData.consignmentSet)
   | ParcelFailedToFetch;
 
-let component = ReasonReact.reducerComponent("Tracking");
+type retainedProps = {id: option(string)};
 
-let make = (~id=?, _children) => {
+let component = ReasonReact.reducerComponentWithRetainedProps("Tracking");
+
+let make = (~id: option(string), _children) => {
   ...component,
   initialState: () => Loading,
   reducer: (action, _state) =>
@@ -31,13 +33,22 @@ let make = (~id=?, _children) => {
     | ParcelFailedToFetch => ReasonReact.Update(Error)
     },
   didMount: self => self.send(ParcelFetch),
+  retainedProps: {
+    id: id,
+  },
+  didUpdate: ({oldSelf, newSelf: self}) =>
+    if (oldSelf.retainedProps.id !== self.retainedProps.id) {
+      self.send(ParcelFetch);
+    },
   render: self =>
     <Container>
       <h1> {ReasonReact.string("Sporing")} </h1>
+      <TrackingForm />
       {
         switch (id, self.state) {
         | (None, _) => <div> {ReasonReact.string("Load packages")} </div>
         | (_, Loading) => <CircularSpinner />
+        | (_, Loaded(data)) => <ConsignmentInfo consignment=data />
         | _ => <ShipmentNotFound />
         }
       }
