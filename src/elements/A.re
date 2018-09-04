@@ -1,3 +1,6 @@
+/** Theme aware anchor component.
+    For rendering links to routes, see Link.
+*/
 module Styles = {
   open Css;
 
