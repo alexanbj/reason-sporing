@@ -1,3 +1,13 @@
+module Styles = {
+  open Css;
+
+  /* Flex the main element for a sticky footer */
+  let appContainer =
+    style([minHeight(vh(100.)), display(flexBox), flexDirection(column)]);
+
+  let main = style([flex(1)]);
+};
+
 open Route;
 
 type state = {route};
@@ -27,9 +37,9 @@ let make = _children => {
     route: ReasonReact.Router.dangerouslyGetInitialUrl()->Route.urlToRoute,
   },
   render: self =>
-    <>
+    <div className=Styles.appContainer>
       <Header />
-      <main>
+      <main className=Styles.main>
         {
           switch (self.state.route) {
           | Home => <Home />
@@ -39,5 +49,5 @@ let make = _children => {
         }
       </main>
       <Footer />
-    </>,
+    </div>,
 };
