@@ -3,10 +3,11 @@ module Styles = {
 
   let input =
     style([
-      textDecoration(none),
-      color(Theme.primaryColor),
-      transition(~duration=15, ~timingFunction=easeIn, "opacity"),
-      hover([opacity(0.5)]),
+      borderRadius(px(6)),
+      border(px(1), solid, rgb(232, 232, 232)),
+      padding(rem(1.5)),
+      color(Theme.textColor),
+      fontSize(rem(1.0)),
     ]);
 };
 

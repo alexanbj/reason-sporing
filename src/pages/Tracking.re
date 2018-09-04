@@ -22,8 +22,7 @@ let make = (~id=?, _children) => {
         Loading,
         (
           self =>
-            ConsignmentData.fetchConsignment(
-              "TESTPACKAGE-AT-PICKUPPOINT", payload =>
+            ConsignmentData.fetchConsignment(id, payload =>
               self.send(ParcelFetched(payload))
             )
         ),
@@ -32,13 +31,14 @@ let make = (~id=?, _children) => {
     | ParcelFailedToFetch => ReasonReact.Update(Error)
     },
   didMount: self => self.send(ParcelFetch),
-  render: _self =>
+  render: self =>
     <Container>
       <h1> {ReasonReact.string("Sporing")} </h1>
       {
-        switch (id) {
-        | None => <div> {ReasonReact.string("id")} </div>
-        | Some(id) => <ShipmentNotFound />
+        switch (id, self.state) {
+        | (None, _) => <div> {ReasonReact.string("Load packages")} </div>
+        | (_, Loading) => <CircularSpinner />
+        | _ => <ShipmentNotFound />
         }
       }
     </Container>,
