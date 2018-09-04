@@ -26,4 +26,6 @@ This will replace the development artifact `build/Index.js` for an optimized ver
 
 ## SVGs
 
-The SVGs are taken from https://undraw.co/illustrations, using #ff6347 as the base color
+The SVG illustrations are taken from https://undraw.co/illustrations, using #ff6347 as the base color.
+
+The hero pattern has been generated here https://pattern.flaticon.com/.
