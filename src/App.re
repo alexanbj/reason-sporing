@@ -28,6 +28,7 @@ let make = _children => {
   },
   render: self =>
     <>
+      <Header />
       <main>
         {
           switch (self.state.route) {
