@@ -2,14 +2,15 @@
 
 type route =
   | Home
-  | Tracking
+  | Tracking(option(string))
   | NotFound;
 
 /* Go from a route to an URL */
 let routeToUrl = route =>
   switch (route) {
   | Home => "/"
-  | Tracking => "/sporing"
+  | Tracking(None) => "/sporing"
+  | Tracking(Some(id)) => "/sporing/" ++ id
   | NotFound =>
     raise(Invalid_argument("You're trying to navigate to a not found route"))
   };
@@ -18,6 +19,7 @@ let routeToUrl = route =>
 let urlToRoute = (url: ReasonReact.Router.url) =>
   switch (url.path) {
   | [] => Home
-  | ["sporing"] => Tracking
+  | ["sporing", id] => Tracking(Some(id))
+  | ["sporing"] => Tracking(None)
   | _ => NotFound
   };

@@ -5,6 +5,7 @@ let consignmentUrl = id => {j|$apiBaseUrl/sporing.json?q=$id|j};
 
 type consignment = {
   consignmentId: string,
+  senderName: string,
   totalVolumeInDm3: float,
   totalWeightInKgs: float,
 };
@@ -13,6 +14,7 @@ module Decode = {
   let consignment = json: consignment =>
     Json.Decode.{
       consignmentId: json |> field("consigmentId", string),
+      senderName: json |> field("senderName", string),
       totalVolumeInDm3: json |> field("totalVolumeInDm3", float),
       totalWeightInKgs: json |> field("totalWeightInKgs", float),
     };

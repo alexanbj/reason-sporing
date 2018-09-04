@@ -4,12 +4,14 @@ let component = ReasonReact.reducerComponent("TrackingForm");
 
 let handleSubmit = (event, _self) => {
   event->ReactEvent.Form.preventDefault;
-  ReasonReact.Router.push(Route.routeToUrl(Route.Tracking));
+  ReasonReact.Router.push(
+    Route.routeToUrl(Route.Tracking(Some("TESTPACKAGE-AT-PICKUPPOINT"))),
+  );
 };
 
 let make = _children => {
   ...component,
-  initialState: () => "",
+  initialState: () => "TESTPACKAGE-AT-PICKUPPOINT",
   /* State transitions */
   reducer: (newText, _text) => ReasonReact.Update(newText),
   render: self =>
