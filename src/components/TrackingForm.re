@@ -17,7 +17,9 @@ let component = ReasonReact.reducerComponent("TrackingForm");
 let handleSubmit = (event, self) => {
   event->ReactEvent.Form.preventDefault;
   let id = self.ReasonReact.state;
-  ReasonReact.Router.push(Route.routeToUrl(Route.Tracking(Some(id))));
+  if (String.trim(id) != "") {
+    ReasonReact.Router.push(Route.routeToUrl(Route.Tracking(Some(id))));
+  };
 };
 
 let make = (~initialValue=?, _children) => {

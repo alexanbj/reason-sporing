@@ -29,3 +29,7 @@ This will replace the development artifact `build/Index.js` for an optimized ver
 The SVG illustrations are taken from https://undraw.co/illustrations, using #ff6347 as the base color.
 
 The hero pattern has been generated here https://pattern.flaticon.com/.
+
+## Cypress tests
+
+[The best practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements) when using Cypress to target elements is to use data-\* attributes. ReasonReact [doesn't properly support these attributes](https://reasonml.github.io/reason-react/docs/en/invalid-prop-name), so our end to end tests will be more flaky than they should.
