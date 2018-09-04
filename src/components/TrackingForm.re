@@ -2,11 +2,10 @@ type state = string;
 
 let component = ReasonReact.reducerComponent("TrackingForm");
 
-let handleSubmit = (event, _self) => {
+let handleSubmit = (event, self) => {
   event->ReactEvent.Form.preventDefault;
-  ReasonReact.Router.push(
-    Route.routeToUrl(Route.Tracking(Some("TESTPACKAGE-AT-PICKUPPOINT"))),
-  );
+  let id = self.ReasonReact.state;
+  ReasonReact.Router.push(Route.routeToUrl(Route.Tracking(Some(id))));
 };
 
 let make = _children => {
@@ -18,8 +17,10 @@ let make = _children => {
     <form onSubmit={self.handle(handleSubmit)}>
       <Input
         value={self.state}
-        autoFocus=true
-        onChange={event => event->ReactEvent.Form.target##value}
+        ariaLabel="Sporing på referanse-, sendings- eller kollinummer"
+        placeholder="Sporing på referanse-, sendings- eller kollinummer"
+        onChange={event => self.send(event->ReactEvent.Form.target##value)}
       />
+      <Button type_="submit"> {ReasonReact.string("Søk")} </Button>
     </form>,
 };

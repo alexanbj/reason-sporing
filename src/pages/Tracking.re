@@ -1,13 +1,13 @@
-type parcel = array(ConsignmentData.consignment);
+type parcel = ConsignmentData.consignmentSet;
 
 type state =
   | Loading
   | Error
-  | Loaded(array(ConsignmentData.consignment));
+  | Loaded(ConsignmentData.consignmentSet);
 
 type action =
   | ParcelFetch
-  | ParcelFetched(array(ConsignmentData.consignment))
+  | ParcelFetched(ConsignmentData.consignmentSet)
   | ParcelFailedToFetch;
 
 let component = ReasonReact.reducerComponent("Tracking");

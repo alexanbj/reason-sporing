@@ -11,10 +11,14 @@ type recipientHandlingAddress = {
 type consignment = {
   consignmentId: string,
   senderName: string,
-  recipientHandlingAddress,
+  /* recipientHandlingAddress, */
   totalVolumeInDm3: float,
   totalWeightInKgs: float,
 };
+
+type shipment =
+  | ShipmentFound(consignment)
+  | ShipmentNotFound;
 
 type consignmentSet = {consignmentSet: array(consignment)};
 
@@ -27,23 +31,21 @@ module Decode = {
 
   let consignment = json: consignment =>
     Json.Decode.{
-      consignmentId: json |> field("consigmentId", string),
+      consignmentId: json |> field("consignmentId", string),
       senderName: json |> field("senderName", string),
-      recipientHandlingAddress:
-        json |> field("recipientHandlingAdress", recipientHandlingAddress),
+      /* recipientHandlingAddress:
+         json |> field("recipientHandlingAdress", recipientHandlingAddress), */
       totalVolumeInDm3: json |> field("totalVolumeInDm3", float),
       totalWeightInKgs: json |> field("totalWeightInKgs", float),
     };
 
-  let consignmentSet = json: consignmentSet =>
-    Json.Decode.{
-      consignmentSet:
-        json
-        |> field("consigmentSet", Json.Decode.(json |> array(consignment))),
-    };
-
   let consignments = json: array(consignment) =>
     Json.Decode.(json |> array(consignment));
+
+  let consignmentSet = json: consignmentSet =>
+    Json.Decode.{
+      consignmentSet: json |> field("consignmentSet", consignments),
+    };
 };
 
 let fetchConsignment = (id, callback) =>
@@ -52,7 +54,7 @@ let fetchConsignment = (id, callback) =>
     |> then_(Fetch.Response.json)
     |> then_(json =>
          json
-         |> Decode.consignments
+         |> Decode.consignmentSet
          |> (
            consignments => {
              callback(consignments);

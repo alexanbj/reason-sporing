@@ -13,8 +13,15 @@ module Styles = {
 
 let component = ReasonReact.statelessComponent("Input");
 
-let make = (~value=?, ~autoFocus=?, ~onChange=?, _children) => {
+let make = (~value=?, ~ariaLabel, ~onChange=?, ~placeholder=?, _children) => {
   ...component,
   render: _self =>
-    <input className=Styles.input ?autoFocus ?value ?onChange type_="text" />,
+    <input
+      className=Styles.input
+      ariaLabel
+      ?value
+      ?onChange
+      ?placeholder
+      type_="text"
+    />,
 };
