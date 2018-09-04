@@ -11,6 +11,8 @@ type event = {
   description: string,
   displayDate: string,
   displayTime: string,
+  /* TODO: Is this an unique id or something else? */
+  unitId: string,
 };
 
 type package = {
@@ -20,7 +22,7 @@ type package = {
   eventSet: array(event),
 };
 
-type consignment = {
+type consignment_ok = {
   consignmentId: string,
   senderName: string,
   recipientHandlingAddress,
@@ -29,9 +31,14 @@ type consignment = {
   totalWeightInKgs: float,
 };
 
-type shipment =
-  | ShipmentFound(consignment)
-  | ShipmentNotFound;
+type consignment_error = {
+  error: int,
+  message: string,
+};
+
+type consignment =
+  | ConsignmentOk(consignment_ok)
+  | ConsignmentError(consignment_error);
 
 type consignmentSet = {consignmentSet: array(consignment)};
 
@@ -42,6 +49,7 @@ module Decode = {
       description: json |> field("description", string),
       displayDate: json |> field("displayDate", string),
       displayTime: json |> field("displayTime", string),
+      unitId: json |> field("unitId", string),
     };
 
   let package = json: package =>
@@ -58,16 +66,33 @@ module Decode = {
       city: json |> field("city", string),
     };
 
-  let consignment = json: consignment =>
-    Json.Decode.{
-      consignmentId: json |> field("consignmentId", string),
-      senderName: json |> field("senderName", string),
-      packageSet: json |> field("packageSet", array(package)),
-      recipientHandlingAddress:
-        json |> field("recipientHandlingAddress", recipientHandlingAddress),
-      totalVolumeInDm3: json |> field("totalVolumeInDm3", float),
-      totalWeightInKgs: json |> field("totalWeightInKgs", float),
+  let consignment = json: consignment => {
+    /* We check if there is an error field when decoding the json to determine the correct variant */
+    let errorMaybe = Json.Decode.(json |> optional(field("error", int)));
+
+    switch (errorMaybe) {
+    | Some(_) =>
+      ConsignmentError(
+        Json.Decode.{
+          error: json |> field("error", int),
+          message: json |> field("message", string),
+        },
+      )
+    | _ =>
+      ConsignmentOk(
+        Json.Decode.{
+          consignmentId: json |> field("consignmentId", string),
+          senderName: json |> field("senderName", string),
+          packageSet: json |> field("packageSet", array(package)),
+          recipientHandlingAddress:
+            json
+            |> field("recipientHandlingAddress", recipientHandlingAddress),
+          totalVolumeInDm3: json |> field("totalVolumeInDm3", float),
+          totalWeightInKgs: json |> field("totalWeightInKgs", float),
+        },
+      )
     };
+  };
 
   let consignments = json: array(consignment) =>
     Json.Decode.(json |> array(consignment));
@@ -78,6 +103,9 @@ module Decode = {
     };
 };
 
+/**
+ * Fetch by id, and decode the response before calling the callback
+ */
 let fetchConsignment = (id, callback) =>
   Js.Promise.(
     Fetch.fetch(consignmentUrl(id))
@@ -85,12 +113,12 @@ let fetchConsignment = (id, callback) =>
     |> then_(json =>
          json
          |> Decode.consignmentSet
-         |> (
-           consignments => {
-             callback(consignments);
-             resolve();
-           }
-         )
+         |> (consignmentSet => callback(consignmentSet))
+         |> resolve
        )
+    /* TODO: Better error handling here
+     * Do we want two levels of errors, one for the fetches and one for the consignments?
+     */
+    /* |> catch(_err => Js.Promise.resolve()) */
     |> ignore
   );
