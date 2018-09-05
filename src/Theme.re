@@ -1,7 +1,7 @@
 open Css;
 
 let textColor = rgb(44, 62, 80);
-let secondaryTextColor = rgb(153, 153, 153);
+let secondaryTextColor = rgb(119, 118, 118);
 let primaryColor = rgb(231, 4, 15);
 let containerPixelWidth = 980;
 

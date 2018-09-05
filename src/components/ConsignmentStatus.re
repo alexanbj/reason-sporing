@@ -1,7 +1,7 @@
 module Styles = {
   open Css;
 
-  let status =
+  let statusGrid =
     style([
       display(grid),
       gridTemplateColumns([minContent, auto]),
@@ -26,25 +26,28 @@ let make = (~consignment: ConsignmentData.consignment_ok, _children) => {
   ...component,
   render: _self =>
     <div>
-      <h3> {ReasonReact.string("Status")} </h3>
-      <div className=Styles.status>
+      <h3> {"Status" |> ReasonReact.string} </h3>
+      <div className=Styles.statusGrid>
         {
           consignment.packageSet[0].eventSet
-          |> Array.map((event: ConsignmentData.event) =>
-               <>
-                 <div> {ReasonReact.string("test")} </div>
-                 <div>
-                   <div> {ReasonReact.string(event.description)} </div>
-                   <small className=Styles.timestamp>
-                     {
-                       ReasonReact.string(
-                         event.displayDate ++ " " ++ event.displayTime,
-                       )
-                     }
-                   </small>
-                 </div>
-               </>
-             )
+          |> Array.map((event: ConsignmentData.event)
+               /* Currently reason doesn't support keyed fragments */
+               =>
+                 <>
+                   <div> {event.city |> ReasonReact.string} </div>
+                   <div>
+                     <div> {event.description |> ReasonReact.string} </div>
+                     <small className=Styles.timestamp>
+                       {
+                         event.displayDate
+                         ++ " "
+                         ++ event.displayTime
+                         |> ReasonReact.string
+                       }
+                     </small>
+                   </div>
+                 </>
+               )
           |> ReasonReact.array
         }
       </div>
