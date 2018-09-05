@@ -15,4 +15,10 @@ describe('Home view', function() {
     cy.get('form').submit();
     cy.url().should('include', '/sporing');
   });
+
+  it('should not navigate when the form is empty', () => {
+    cy.get('input').clear();
+    cy.get('form').submit();
+    cy.location('pathname').should('eq', '/');
+  });
 });
