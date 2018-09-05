@@ -1,23 +1,22 @@
-# posten
+# reason-sporing
 
 ## Run Project
 
 ```sh
-npm install
-npm start
+yarn
+yarn bs:start
 # in another tab
-npm run webpack
+yarn run start
 ```
 
-After you see the webpack compilation succeed (the `npm run webpack` step), open up `src/index.html` (**no server needed!**). Then modify whichever `.re` file in `src` and refresh the page to see the changes.
+After you see the webpack compilation succeed (the `yarn run start` step), open up `http://localhost:3000`.
 
 **For more elaborate ReasonReact examples**, please see https://github.com/reasonml-community/reason-react-example
 
 ## Build for Production
 
 ```sh
-npm run build
-npm run webpack:production
+yarn run build
 ```
 
 This will replace the development artifact `build/Index.js` for an optimized version.
