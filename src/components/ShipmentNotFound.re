@@ -4,7 +4,12 @@ module Styles = {
   let heading = style([textAlign(center)]);
 
   let img =
-    style([display(block), margin2(px(30), auto), width(pct(50.))]);
+    style([
+      display(block),
+      margin2(px(30), auto),
+      width(pct(50.)),
+      height(auto),
+    ]);
 };
 
 let component = ReasonReact.statelessComponent("ShipmentNotFound");

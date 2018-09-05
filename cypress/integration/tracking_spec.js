@@ -16,6 +16,6 @@ describe('Tracking view', function() {
   it('should render the no packages found view', () => {
     cy.get('input').clear();
     cy.get('input').type('no-package-like-this');
-    cy.get('img[src^="/undraw_empty_xct9.svg"]').should('be.visible');
+    cy.get('#9af98f83-10c5-4067-bc84-20554b2827d8').should('be.visible');
   });
 });

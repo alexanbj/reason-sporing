@@ -4,6 +4,6 @@ describe('404 view', function() {
   });
 
   it('should render the pretty 404 page', () => {
-    cy.get('img[src^="/undraw_lost_bqr2.svg"]').should('be.visible');
+    cy.get('#86b9c162-e770-4ffa-9cda-84e615f7dc7a').should('be.visible');
   });
 });
