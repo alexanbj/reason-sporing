@@ -1,7 +1,7 @@
 module Styles = {
   open Css;
 
-  let footer = style([padding(px(30))]);
+  let footer = style([paddingTop(px(30)), paddingBottom(px(30))]);
 };
 
 let component = ReasonReact.statelessComponent("Footer");

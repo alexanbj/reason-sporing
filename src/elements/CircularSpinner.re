@@ -2,7 +2,12 @@ module Styles = {
   open Css;
 
   let outer =
-    style([display(flexBox), alignItems(center), justifyContent(center)]);
+    style([
+      display(flexBox),
+      alignItems(center),
+      justifyContent(center),
+      paddingTop(px(20)),
+    ]);
 
   let spin =
     keyframes([

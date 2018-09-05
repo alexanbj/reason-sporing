@@ -1,7 +1,7 @@
 module Styles = {
   open Css;
 
-  let header = style([padding(px(30))]);
+  let header = style([paddingTop(px(30)), paddingBottom(px(30))]);
 };
 
 let component = ReasonReact.statelessComponent("Header");

@@ -3,6 +3,7 @@ module Styles = {
 
   let form =
     style([
+      marginBottom(px(30)),
       display(grid),
       /* The column gap in css grid is so nice for spacing between items! */
       gridColumnGap(rem(1.0)),
