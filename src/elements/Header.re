@@ -11,7 +11,9 @@ let make = _children => {
   render: _self =>
     <header className=Styles.header>
       <Container>
-        <Link route=Route.Home> {ReasonReact.string("Hjem")} </Link>
+        <nav>
+          <Link route=Route.Home> {ReasonReact.string("Hjem")} </Link>
+        </nav>
       </Container>
     </header>,
 };
