@@ -11,14 +11,18 @@ type event = {
   description: string,
   displayDate: string,
   displayTime: string,
-  /* TODO: Is this an unique id or something else? */
-  unitId: string,
+  postalCode: string,
 };
 
 type package = {
   dateOfReturn: string,
   statusDescription: string,
   productName: string,
+  heightInCm: float,
+  lengthInCm: float,
+  volumeInDm3: float,
+  weightInKgs: float,
+  widthInCm: float,
   eventSet: array(event),
 };
 
@@ -50,7 +54,7 @@ module Decode = {
       description: json |> field("description", string),
       displayDate: json |> field("displayDate", string),
       displayTime: json |> field("displayTime", string),
-      unitId: json |> field("unitId", string),
+      postalCode: json |> field("postalCode", string),
     };
 
   let package = json: package =>
@@ -58,6 +62,11 @@ module Decode = {
       dateOfReturn: json |> field("dateOfReturn", string),
       productName: json |> field("productName", string),
       statusDescription: json |> field("statusDescription", string),
+      widthInCm: json |> field("widthInCm", float),
+      lengthInCm: json |> field("lengthInCm", float),
+      heightInCm: json |> field("heightInCm", float),
+      weightInKgs: json |> field("weightInKgs", float),
+      volumeInDm3: json |> field("volumeInDm3", float),
       eventSet: json |> field("eventSet", array(event)),
     };
 

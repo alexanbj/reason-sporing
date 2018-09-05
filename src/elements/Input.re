@@ -3,8 +3,7 @@ module Styles = {
 
   let input =
     style([
-      borderRadius(px(6)),
-      border(px(1), solid, rgb(232, 232, 232)),
+      border(px(1), solid, rgb(251, 182, 182)),
       padding(rem(1.0)),
       color(Theme.textColor),
       fontSize(rem(1.0)),

@@ -34,7 +34,12 @@ let make = (~consignment: ConsignmentData.consignment_ok, _children) => {
                /* Currently reason doesn't support keyed fragments */
                =>
                  <>
-                   <div> {event.city |> ReasonReact.string} </div>
+                   <div>
+                     <div> {event.city |> ReasonReact.string} </div>
+                     <span className=Styles.timestamp>
+                       {event.postalCode |> ReasonReact.string}
+                     </span>
+                   </div>
                    <div>
                      <div> {event.description |> ReasonReact.string} </div>
                      <small className=Styles.timestamp>
