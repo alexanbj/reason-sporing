@@ -44,7 +44,7 @@ let make = (~id: option(string), _children) => {
   render: self =>
     <Container>
       <h1> {ReasonReact.string("Sporing")} </h1>
-      <TrackingForm />
+      <TrackingForm initialValue=?id />
       {
         switch (self.state) {
         | Loading => <CircularSpinner />
