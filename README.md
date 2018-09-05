@@ -24,6 +24,21 @@ This will replace the development artifact `build/Index.js` for an optimized ver
 
 **To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
 
+## Deploy
+
+The application is deployed to [now.sh](https://zeit.co/now), by running the following in the same folder as the `package.json`.
+
+```sh
+now
+```
+
+If you want to build for production and serve locally for testing,
+
+```sh
+yarn run build
+yarn run now-start
+```
+
 ## SVGs
 
 The SVG illustrations are taken from https://undraw.co/illustrations, using #ff6347 as the base color.
