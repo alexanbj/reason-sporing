@@ -12,20 +12,20 @@ module.exports = {
     //hot: true,
     contentBase: path.join(__dirname, 'public'),
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
     //disableHostCheck: true,
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
   },
   output: {
     path: outputDir,
     publicPath: '/',
-    filename: isProd ? '[name].[chunkhash].js' : '[name].js'
+    filename: isProd ? '[name].[chunkhash].js' : '[name].js',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html')
-    })
-  ]
+      template: path.join(__dirname, 'src', 'index.html'),
+    }),
+  ],
 };
