@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Decode that we can deserialize not found json 1`] = `
+Array [
+  Array [
+    Array [
+      Array [
+        404,
+        "No shipments found",
+      ],
+    ],
+  ],
+]
+`;
+
+exports[`Decode that we can deserialize shipment found json 1`] = `
+Object {
+  "consignmentSet": Array [
+    Object {
+      "consignmentId": "SHIPMENTNUMBER",
+      "packageSet": Array [
+        Object {
+          "brand": "POSTEN",
+          "dateOfReturn": "01.12.2011",
+          "descriptions": Array [],
+          "eventSet": Array [
+            Object {
+              "city": "LØTEN",
+              "consignmentEvent": false,
+              "country": "Norway",
+              "countryCode": "NO",
+              "dateIso": "2010-10-01T08:30:25+02:00",
+              "description": "Sendingen er ankommet utleveringssted.",
+              "displayDate": "01.10.2010",
+              "displayTime": "08:30",
+              "postalCode": "2341",
+              "recipientSignature": Object {
+                "name": "",
+              },
+              "status": "READY_FOR_PICKUP",
+              "unitId": "122608",
+              "unitInformationUrl": "http://fraktguide.bring.no/fraktguide/api/pickuppoint/id/122608",
+              "unitType": "BRING",
+            },
+            Object {
+              "city": "OSLO",
+              "consignmentEvent": false,
+              "country": "Norway",
+              "countryCode": "NO",
+              "dateIso": "2010-09-30T08:27:08+02:00",
+              "definitions": Array [
+                Object {
+                  "explanation": "Brev, pakke eller godsterminal som benyttes til sortering  og omlasting av sendinger som er underveis til mottaker.",
+                  "term": "terminal",
+                },
+              ],
+              "description": "Sendingen er innlevert til terminal og videresendt.",
+              "displayDate": "30.09.2010",
+              "displayTime": "08:27",
+              "postalCode": "0024",
+              "recipientSignature": Object {
+                "name": "",
+              },
+              "status": "IN_TRANSIT",
+              "unitId": "032850",
+              "unitType": "BRING",
+            },
+          ],
+          "heightInCm": 29,
+          "lengthInCm": 41,
+          "packageNumber": "TESTPACKAGEATPICKUPPOINT",
+          "pickupCode": "AA11",
+          "previousPackageNumber": "",
+          "productCode": "1202",
+          "productName": "Klimanøytral servicepakke",
+          "recipientHandlingAddress": Object {
+            "addressLine1": "",
+            "addressLine2": "",
+            "city": "VINTERBRO",
+            "country": "",
+            "countryCode": "",
+            "postalCode": "1407",
+          },
+          "senderAddress": Object {
+            "addressLine1": "",
+            "addressLine2": "",
+            "city": "",
+            "country": "",
+            "countryCode": "",
+            "postalCode": "",
+          },
+          "senderName": "POSTEN NORGE AS",
+          "statusDescription": "Sendingen kan hentes på utleveringssted.",
+          "volumeInDm3": 45.2,
+          "weightInKgs": 16.5,
+          "widthInCm": 38,
+        },
+      ],
+      "previousConsignmentId": "",
+      "recipientHandlingAddress": Object {
+        "addressLine1": "",
+        "addressLine2": "",
+        "city": "VINTERBRO",
+        "country": "",
+        "countryCode": "",
+        "postalCode": "1407",
+      },
+      "senderAddress": Object {
+        "addressLine1": "",
+        "addressLine2": "",
+        "city": "",
+        "country": "",
+        "countryCode": "",
+        "postalCode": "",
+      },
+      "senderName": "POSTEN NORGE AS",
+      "senderReference": "",
+      "totalVolumeInDm3": 45.2,
+      "totalWeightInKgs": 16.5,
+    },
+  ],
+}
+`;
